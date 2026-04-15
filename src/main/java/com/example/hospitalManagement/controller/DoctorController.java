@@ -1,6 +1,7 @@
 package com.example.hospitalManagement.controller;
 
 import com.example.hospitalManagement.dto.DoctorDto;
+import com.example.hospitalManagement.dto.ScheduleDto;
 import com.example.hospitalManagement.service.services.DoctorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +26,11 @@ public class DoctorController {
     @GetMapping("/getAppointment/{id}")
     public ResponseEntity<DoctorDto> getAppointments(@PathVariable Long id){
         return new ResponseEntity<>(doctorService.getAppointments(id),HttpStatus.OK);
+    }
+    @PostMapping("/createSchedule/{doctor_id}")
+    public ResponseEntity<String> createSchedule(@RequestBody ScheduleDto dto,
+                                                 @PathVariable Long doctor_id){
+        return new ResponseEntity<>(doctorService.createSchedule(dto,doctor_id),
+                HttpStatus.OK);
     }
 }

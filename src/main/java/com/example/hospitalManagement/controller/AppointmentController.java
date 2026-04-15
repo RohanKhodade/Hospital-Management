@@ -21,5 +21,4 @@ public class AppointmentController {
                 appointmentService.createAppointment(appointmentDto,patientId,doctorId),
                 HttpStatus.OK);
     }
-
 }

@@ -1,40 +1,40 @@
 package com.example.hospitalManagement.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Appointment {
+@Getter
+@Setter
+public class DoctorSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false)
-    private LocalDateTime time;
-
-    private String reason;
-
-    @JsonIgnore
     @ManyToOne
-    @JoinColumn(nullable=false,name="patient_id")
-    private Patient patient;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name="doctor_id",nullable=false)
+    @JoinColumn(name="doctor_id", nullable=false)
     private Doctor doctor;
 
     @Enumerated(EnumType.STRING)
-    private AppointmentStatus appointmentStatus;
+    @Column(nullable=false)
+    private DayOfWeek dayOfWeek;
+
+    @Column(nullable=false)
+    private LocalTime startTime;
+
+    @Column(nullable=false)
+    private LocalTime endTime;
+
+    @Column(nullable=false)
+    private int slotDurationMinutes;
 }

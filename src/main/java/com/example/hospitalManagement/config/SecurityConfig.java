@@ -36,7 +36,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->
                         auth.requestMatchers("/auth/login",
                                         "/patient/all",
-                                        "/patient/create").permitAll()
+                                        "/patient/create",
+                                        "/appointment/**",
+                                        "/doctor/createSchedule/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session->
