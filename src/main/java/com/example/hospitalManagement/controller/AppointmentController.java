@@ -2,6 +2,7 @@ package com.example.hospitalManagement.controller;
 
 import com.example.hospitalManagement.dto.AppointmentDto;
 import com.example.hospitalManagement.service.services.AppointmentService;
+import com.example.hospitalManagement.util.AuthUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -32,6 +32,9 @@ public class Doctor {
     @ManyToMany(mappedBy="doctors")
     private List<Department> departments=new ArrayList<>();
 
+    @OneToMany(mappedBy="doctor",cascade=CascadeType.ALL,orphanRemoval=true)
+    private List<MedicalRecord> medicalRecords=new ArrayList<>();
+
     @OneToOne
     @JoinColumn(name="user_id")
     private User user;

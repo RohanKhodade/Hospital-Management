@@ -51,7 +51,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
         }
 
-        //3. if username is found and security context holder is not set then srt it
+        //3. if username is found and security context holder is not set then set it
         if (username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails userDetails=userServiceImpl.loadUserByUsername(username);
             // set authentication in security context holder

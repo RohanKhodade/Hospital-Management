@@ -9,4 +9,5 @@ public interface DoctorService {
     String deleteDoctor(Long doctorId);
     DoctorDto getAppointments(Long doctorId);
     String createSchedule(ScheduleDto dto, Long doctor_id);
+    String completeAppointment(Long appointmentId,String prescription,String notes);
 }

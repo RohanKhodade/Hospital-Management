@@ -57,10 +57,9 @@ public class PatientServiceImpl implements PatientService {
         }
         return dtoList;
     }
+
     @Override
     public String createPatient(PatientDto patientDto){
-
-
         User user=new User();
         user.setUsername(patientDto.getUsername());
         user.setPassword(passwordEncoder.encode(patientDto.getPassword()));

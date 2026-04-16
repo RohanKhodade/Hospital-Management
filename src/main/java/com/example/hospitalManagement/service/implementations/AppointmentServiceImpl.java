@@ -9,8 +9,10 @@ import com.example.hospitalManagement.repository.DoctorRepository;
 import com.example.hospitalManagement.repository.DoctorScheduleRepo;
 import com.example.hospitalManagement.repository.PatientRepository;
 import com.example.hospitalManagement.service.services.AppointmentService;
+import com.example.hospitalManagement.util.AuthUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -25,14 +27,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final DoctorScheduleRepo scheduleRepo;
+    private final AuthUtil authUtil;
     public AppointmentServiceImpl(AppointmentRepository appointmentRepository,
                                   PatientRepository patientRepository,
                                   DoctorRepository doctorRepository,
-                                  DoctorScheduleRepo scheduleRepo){
+                                  DoctorScheduleRepo scheduleRepo,
+                                  AuthUtil authUtil){
         this.appointmentRepository=appointmentRepository;
         this.patientRepository=patientRepository;
         this.doctorRepository=doctorRepository;
         this.scheduleRepo=scheduleRepo;
+        this.authUtil=authUtil;
     }
 
     @Override
@@ -44,6 +49,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         Doctor doctor= doctorRepository.findById(doctorId).orElseThrow(
                 ()-> new EntityNotFoundException("Doctor",doctorId)
         );
+        UserDetails loggedUser= authUtil.getLoggedUser();
+        if(loggedUser.getAuthorities().iterator().next().getAuthority().equals("ROLE_PATIENT")){
+            if (!patient.getUser().getUsername().equals(loggedUser.getUsername())){
+                throw new RuntimeException("you cannot create other patients appointment");
+            }
+        }
         // extract the date time and day of week requested
         LocalDateTime requestedDateTime=LocalDateTime.parse(dto.getTime());
         LocalTime requestedTime=requestedDateTime.toLocalTime();

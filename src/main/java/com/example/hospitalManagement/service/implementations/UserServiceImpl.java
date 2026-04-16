@@ -1,5 +1,7 @@
 package com.example.hospitalManagement.service.implementations;
 
+import com.example.hospitalManagement.dto.UserDto;
+import com.example.hospitalManagement.entity.Role;
 import com.example.hospitalManagement.entity.User;
 import com.example.hospitalManagement.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
-                .authorities(user.getRole().name())
+                .roles(user.getRole().name().replace("ROLE_",""))
                 .build();
     }
 }
