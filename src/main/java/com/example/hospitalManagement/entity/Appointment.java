@@ -35,6 +35,9 @@ public class Appointment {
     @JoinColumn(name="doctor_id",nullable=false)
     private Doctor doctor;
 
+    @OneToOne(mappedBy = "appointment")
+    private MedicalRecord medicalRecord;
+
     @Enumerated(EnumType.STRING)
     private AppointmentStatus appointmentStatus;
 }

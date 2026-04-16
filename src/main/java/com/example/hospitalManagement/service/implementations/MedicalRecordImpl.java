@@ -38,7 +38,7 @@ public class MedicalRecordImpl implements MedicalRecordService {
     @Override
     public List<MedicalRecordDto> getAllDoctorRecords(Long doctorId){
         List<MedicalRecordDto> dtoList=new ArrayList<>();
-        List<MedicalRecord> records=recordRepository.findAllByPatientId(doctorId);
+        List<MedicalRecord> records=recordRepository.findAllByDoctorId(doctorId);
         for (MedicalRecord record: records){
             dtoList.add(MedicalRecordMapper.toDto(record));
         }

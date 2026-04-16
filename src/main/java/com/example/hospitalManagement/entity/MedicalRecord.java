@@ -1,5 +1,6 @@
 package com.example.hospitalManagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,13 +18,19 @@ public class MedicalRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="patient_id",nullable=false)
     private Patient patient;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="doctor_id",nullable=false)
     private Doctor doctor;
+
+    @OneToOne
+    @JoinColumn(name="appointment_id",nullable=false)
+    private Appointment appointment;
 
     @Column(nullable=false)
     private String diagnosis;
@@ -32,6 +39,5 @@ public class MedicalRecord {
     private String prescription;
 
     private String note;
-
 
 }

@@ -1,5 +1,6 @@
 package com.example.hospitalManagement.controller;
 
+import com.example.hospitalManagement.dto.CompleteAppointmentDto;
 import com.example.hospitalManagement.dto.DoctorDto;
 import com.example.hospitalManagement.dto.MedicalRecordDto;
 import com.example.hospitalManagement.dto.ScheduleDto;
@@ -30,7 +31,7 @@ public class DoctorController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{doctorId}")
     public ResponseEntity<String> deleteDoctor(@PathVariable Long doctorId){
         return new ResponseEntity<>(doctorService.deleteDoctor(doctorId),HttpStatus.OK);
     }
@@ -51,6 +52,16 @@ public class DoctorController {
     public ResponseEntity<List<MedicalRecordDto>> getMedicalRecords(@PathVariable Long doctorId){
         return new ResponseEntity<>(medicalRecordService.getAllDoctorRecords(doctorId),
                 HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('DOCTOR')")
+    @PostMapping("/complete/Appointment/{appointmentId}")
+    public ResponseEntity<String> completeAppointment(@PathVariable Long appointmentId,
+                                                      @RequestBody CompleteAppointmentDto dto){
+        return new ResponseEntity<>(doctorService.
+                completeAppointment(appointmentId,
+                        dto.getPrescription(),
+                        dto.getNotes()),HttpStatus.OK);
     }
 
 }

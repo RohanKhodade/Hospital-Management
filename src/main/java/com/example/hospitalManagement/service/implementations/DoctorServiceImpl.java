@@ -89,6 +89,7 @@ public class DoctorServiceImpl implements DoctorService {
         appointmentRepository.save(appointment);
 
         MedicalRecord medicalRecord=new MedicalRecord();
+        medicalRecord.setAppointment(appointment);
         medicalRecord.setDoctor(appointment.getDoctor());
         medicalRecord.setPatient(appointment.getPatient());
         medicalRecord.setDiagnosis(appointment.getReason());
