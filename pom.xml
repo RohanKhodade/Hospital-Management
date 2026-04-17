@@ -101,6 +101,13 @@
             <version>0.12.6</version>
             <scope>runtime</scope>
         </dependency>
+
+		<!-- swagger for webui to test endpoints -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>3.0.1</version> <!-- Or the latest stable 3.x version -->
+		</dependency>
 	</dependencies>
 
 	<build>
