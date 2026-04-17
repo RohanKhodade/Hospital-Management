@@ -25,7 +25,7 @@ A robust Spring Boot backend application designed to manage hospital operations 
 
 ## 🏗️ Architecture
 
-![Architecture](docs/images/hms_application_architecture.svg)
+![Architecture](src/main/java/com/example/hospitalManagement/docs/images/hms_application_architecture.svg)
 
 The application follows a clean layered architecture:
 
@@ -38,14 +38,14 @@ repository layer communicates with PostgreSQL via Spring Data JPA.
 
 ## 🗄️ Entity Relationship Diagram
 
-![ER Diagram 1](docs/images/HMS_ERD.png)
+![ER Diagram 1](src/main/java/com/example/hospitalManagement/docs/images/HMS_ERD.png)
 Core entities include User, Patient, Doctor, Appointment, MedicalRecord, Insurance, DoctorSchedule, and Department with proper JPA relationships.
 
 ---
 
 ## 🔐 JWT Authentication Flow
 
-![JWT Flow](docs/images/jwt_authentication_flow.svg)
+![JWT Flow](src/main/java/com/example/hospitalManagement/docs/images/jwt_authentication_flow.svg)
 
 ---
 
