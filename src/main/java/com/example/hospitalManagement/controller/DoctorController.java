@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -64,4 +65,9 @@ public class DoctorController {
                         dto.getNotes()),HttpStatus.OK);
     }
 
+    @GetMapping("/getSchedule/{doctorId}")
+    public ResponseEntity<List<ScheduleDto>> getSchedule(@PathVariable Long doctorId){
+        return new ResponseEntity<>(doctorService.getSchedule(doctorId),
+                HttpStatus.OK);
+    }
 }

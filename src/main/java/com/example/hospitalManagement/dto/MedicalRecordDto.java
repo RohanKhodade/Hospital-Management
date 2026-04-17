@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MedicalRecordDto {
 
+    private String time;
     private String patientName;
     private String patientEmail;
     private String doctorName;

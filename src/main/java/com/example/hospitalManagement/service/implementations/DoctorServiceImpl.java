@@ -12,6 +12,12 @@ import com.example.hospitalManagement.util.AuthUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
@@ -80,11 +86,22 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public List<ScheduleDto> getSchedule(Long doctorId){
+        List<DoctorSchedule> schedules=scheduleRepo.findAllByDoctorId(doctorId);
+        List<ScheduleDto> dtoList=new ArrayList<>();
+        for(DoctorSchedule schedule: schedules){
+            dtoList.add(DoctorScheduleMapper.toDto(schedule));
+        }
+        return dtoList;
+    }
+
+    @Override
     public String completeAppointment(Long appointmentId,
                                       String prescription,
                                       String notes){
         Appointment appointment=appointmentRepository.findById(appointmentId)
                 .orElseThrow(()-> new EntityNotFoundException("Appointment", appointmentId));
+        authUtil.checkAccess(appointment.getDoctor().getUser().getUsername());
         appointment.setAppointmentStatus(AppointmentStatus.COMPLETED);
         appointmentRepository.save(appointment);
 

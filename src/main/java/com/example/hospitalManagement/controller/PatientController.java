@@ -47,7 +47,7 @@ public class PatientController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('PATIENT') or hasRole('DOCTOR')")
     @GetMapping("/MedicalRecords/{patientId}")
     public ResponseEntity<List<MedicalRecordDto>> getMedicalRecords(@PathVariable Long patientId){
-        return new ResponseEntity<>(medicalRecordService.getAllPatientRecords(patientId),
+        return   new ResponseEntity<>(medicalRecordService.getAllPatientRecords(patientId),
                 HttpStatus.OK);
     }
 }

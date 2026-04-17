@@ -15,4 +15,13 @@ public class DoctorScheduleMapper {
         schedule.setSlotDurationMinutes(dto.getSlotDuration());
         return schedule;
     }
+
+    public static ScheduleDto toDto(DoctorSchedule schedule){
+        ScheduleDto dto=new ScheduleDto();
+        dto.setDayOfWeek(schedule.getDayOfWeek());
+        dto.setStartTime(schedule.getStartTime());
+        dto.setEndTime(schedule.getEndTime());
+        dto.setSlotDuration(schedule.getSlotDurationMinutes());
+        return dto;
+    }
 }

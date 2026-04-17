@@ -9,6 +9,7 @@ public class MedicalRecordMapper {
 
     public static MedicalRecordDto toDto(MedicalRecord record){
         MedicalRecordDto dto=new MedicalRecordDto();
+        dto.setTime(String.valueOf(record.getAppointment().getTime()));
         dto.setPatientName(record.getPatient().getName());
         dto.setPatientEmail(record.getPatient().getEmail());
         dto.setDoctorName(record.getDoctor().getName());
