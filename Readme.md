@@ -1,69 +1,62 @@
 # 🏥 Hospital Management System
 
-A robust **Spring Boot** backend application for managing hospital operations with secure JWT authentication and role-based access control.
-
-![Java](https://img.shields.io/badge/Java-17+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
-![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=json-web-tokens&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+A robust Spring Boot backend application designed to manage hospital operations efficiently with secure JWT authentication and role-based access control.
 
 ---
 
 ## ✨ Features
 
-- Secure JWT-based authentication and authorization
-- Role-based access control (**ADMIN**, **DOCTOR**, **RECEPTIONIST**, **PATIENT**)
+- JWT-based authentication and authorization
+- Role-based access control (ADMIN, DOCTOR, RECEPTIONIST, PATIENT)
 - Patient registration and profile management
-- Doctor management with day-wise scheduling and time slots
+- Doctor scheduling with day-wise availability and time slots
 - Smart appointment booking with slot validation and double-booking prevention
-- Medical record creation when doctor completes an appointment
+- Medical record creation after appointment completion
 - Insurance policy assignment to patients
 - Global exception handling for clean error responses
 - Interactive API documentation using Swagger UI
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ Architecture
 
-![Spring Boot Layered Architecture](https://i.imgur.com/2fK8vL9.png)
+![Architecture](docs/images/architecture.png)
 
-The application follows a clean **three-layer architecture**:
-**Controller → Service → Repository → Database**
+The application follows a clean layered architecture:
+
+Controller → Service → Repository → Database
 
 ---
 
 ## 🗄️ Entity Relationship Diagram
 
-![Hospital ER Diagram 1](https://i.imgur.com/5vN8pQm.png)
-![Hospital ER Diagram 2](https://i.imgur.com/8XjK2Lm.png)
+![ER Diagram 1](docs/images/er-diagram-1.png)
+![ER Diagram 2](docs/images/er-diagram-2.png)
 
-Key entities include `User`, `Patient`, `Doctor`, `Appointment`, `MedicalRecord`, `Insurance`, `DoctorSchedule`, and `Department` with proper JPA relationships.
+Core entities include User, Patient, Doctor, Appointment, MedicalRecord, Insurance, DoctorSchedule, and Department with proper JPA relationships.
 
 ---
 
 ## 🔐 JWT Authentication Flow
 
-![JWT Authentication Flow](https://i.imgur.com/7pL9vXt.png)
+![JWT Flow](docs/images/jwt-flow.png)
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Backend**: Java 17+, Spring Boot 3.x
-- **Security**: Spring Security + JWT
-- **ORM**: JPA / Hibernate
-- **Database**: MySQL
-- **Mapping**: Custom DTO Mappers
-- **Documentation**: Springdoc OpenAPI (Swagger)
-- **Build Tool**: Maven
+- Backend: Java 17+, Spring Boot 3.x
+- Security: Spring Security + JWT
+- ORM: JPA / Hibernate
+- Database: PostgreSQL
+- Documentation: Springdoc OpenAPI (Swagger)
+- Build Tool: Maven
 
 ---
 
 ## 📁 Project Structure
 
-```bash
+```
 hospitalManagement/
 ├── src/main/java/com/example/hospitalManagement/
 │   ├── HospitalManagementApplication.java
@@ -76,71 +69,122 @@ hospitalManagement/
 │   ├── mapper/
 │   ├── repository/
 │   ├── service/
-│   │   ├── services/           # Service Interfaces
-│   │   └── implementations/    # Service Implementations
+│   │   ├── services/
+│   │   └── implementations/
 │   └── util/
 ├── src/main/resources/
 │   └── application.yml
 └── pom.xml
+```
 
-🚀 Getting Started
-Prerequisites
+---
 
-Java 17 or higher
-Maven 3.8+
-MySQL Server
+## 🚀 Getting Started
 
-Steps to Run
+### Prerequisites
 
-Clone the repositoryBashgit clone <your-repository-url>
+- Java 17 or higher
+- Maven 3.8+
+- PostgreSQL
+
+### Setup Instructions
+
+Clone the repository:
+
+```bash
+git clone <your-repository-url>
 cd hospitalManagement
-Configure DatabaseCreate a database named hospital_db and update src/main/resources/application.yml:YAMLspring:
+```
+
+Create database:
+
+```sql
+CREATE DATABASE hospital_db;
+```
+
+Update `application.yml`:
+
+```yaml
+spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/hospital_db?createDatabaseIfNotExist=true
-    username: root
+    url: jdbc:postgresql://localhost:5432/hospital_db
+    username: postgres
     password: yourpassword
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-Run the applicationBashmvn spring-boot:run
+```
 
-Application will be available at http://localhost:8080
+Run the application:
 
-🔑 Default Credentials
+```bash
+mvn spring-boot:run
+```
 
+Application will be available at:
+
+```
+http://localhost:8080
+```
+
+---
+
+## 🔑 Default Credentials
+
+```
 Username: admin
 Password: admin123
+```
 
+---
 
-📚 API Documentation
-Swagger UI: http://localhost:8080/swagger-ui.html
-All protected endpoints require a valid JWT token in the Authorization header as Bearer <token>.
+## 📚 API Documentation
 
-👨‍💻 About This Project
-This entire project was developed from scratch by me, line by line. It showcases:
+```
+http://localhost:8080/swagger-ui.html
+```
 
-Strong understanding of Spring Boot and layered architecture
-Secure REST API development with JWT
-Complex business logic (appointment slot validation, role-based access)
-Proper JPA entity relationships and mappings
-Clean code practices with DTOs, Mappers, and Global Exception Handling
+All protected endpoints require:
 
+```
+Authorization: Bearer <JWT_TOKEN>
+```
 
-🔮 Future Enhancements
+---
 
-Unit and Integration Tests
-Pagination and advanced search
-Email notifications for appointments
-Docker support
-Migration to MapStruct
-Complete Department module
+## 👨‍💻 About This Project
 
+This project was built from scratch and demonstrates strong understanding of Spring Boot architecture, secure REST API development using JWT, and handling of complex business logic such as appointment slot validation and role-based access.
 
-📄 License
-This project is built for learning and portfolio purposes.
+It follows clean coding practices using DTOs, mappers, and global exception handling, along with well-structured JPA entity relationships.
 
-Made with ❤️ using Spring Boot
-⭐ If you like this project, feel free to star the repository!
+---
 
-Developed by Rohan
+## 🔮 Future Enhancements
+
+- Unit and integration testing
+- Pagination and advanced search
+- Email notifications
+- Docker support
+- MapStruct integration
+- Complete Department module
+
+---
+
+## 📄 License
+
+This project is intended for learning and portfolio purposes.
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a star.
+
+---
+
+## 👤 Author
+
+Rohan Khodade
