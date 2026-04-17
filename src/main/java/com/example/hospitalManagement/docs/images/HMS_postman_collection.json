@@ -1,0 +1,417 @@
+{
+  "info": {
+    "_postman_id": "7b44c550-95f9-4d25-8ab2-8176231cc316",
+    "name": "PatientManagement",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34511081"
+  },
+  "item": [
+    {
+      "name": "patientService",
+      "item": [
+        {
+          "name": "get patients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/patient/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "patient",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get patient with id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/patient/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "patient",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create patient",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"rohan khodade\",\r\n    \"email\":\"rohan@12e212gmail.com\",\r\n    \"birthdate\":\"2004-07-12\",\r\n    \"username\":\"rohan\",\r\n    \"password\":\"rohan@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/patient/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "patient",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get insurance",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "get medical records",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "insurance service",
+      "item": [
+        {
+          "name": "assign insurance to patient",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/patient/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "patient",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "appointment service",
+      "item": [
+        {
+          "name": "create appointment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/appointment/create/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "appointment",
+                "create",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "doctor service",
+      "item": [
+        {
+          "name": "create doctor",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"dr zatka\",\r\n    \"username\":\"zatka\",\r\n    \"password\":\"zatka123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/doctor/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "doctor",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get appointments",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "create schedule",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dayOfWeek\":\"THURSDAY\",\r\n    \"startTime\":\"09:00:00\",\r\n    \"endTime\":\"17:00:00\",\r\n    \"slotDuration\":30\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/doctor/createSchedule/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "doctor",
+                "createSchedule",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "complete appointment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbW9sIiwiaWF0IjoxNzc2NDEzMTY5LCJleHAiOjE3NzY0MTY3Njl9.IYz6kBfkNMX4qAwF2tKzwtCwM25eafkBZe3drz6KLvY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"prescription\":\"tablet1 , tablet 2, tablet 3\",\r\n    \"notes\":\"eat light, take rest, do yoga\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/doctor/complete/Appointment/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "doctor",
+                "complete",
+                "Appointment",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get medical records",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbW9sIiwiaWF0IjoxNzc2NDEzMTY5LCJleHAiOjE3NzY0MTY3Njl9.IYz6kBfkNMX4qAwF2tKzwtCwM25eafkBZe3drz6KLvY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/doctor/MedicalRecords/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "doctor",
+                "MedicalRecords",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get schedule",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "department servic",
+      "item": []
+    },
+    {
+      "name": "login",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "ronnie",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "rohan@123",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\":\"elon\",\r\n    \"password\":\"elon@123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/login/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "auth",
+            "login",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create admin",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:8080/user/create/admin",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "user",
+            "create",
+            "admin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create receptionist",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc3NjMyOTEwNiwiZXhwIjoxNzc2MzMyNzA2fQ.eFvstfr9vYJw8uqvSxU4mld_QA3NSbg_qCCS5Zt-C6M",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/user/create/receptionist",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "user",
+            "create",
+            "receptionist"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

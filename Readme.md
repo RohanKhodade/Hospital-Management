@@ -2,6 +2,11 @@
 
 A robust Spring Boot backend application designed to manage hospital operations efficiently with secure JWT authentication and role-based access control.
 
+![Java](https://img.shields.io/badge/Java-17+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=json-web-tokens&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
 ---
 
 ## ✨ Features
@@ -20,26 +25,27 @@ A robust Spring Boot backend application designed to manage hospital operations 
 
 ## 🏗️ Architecture
 
-![Architecture](docs/images/architecture.png)
+![Architecture](docs/images/hms_application_architecture.svg)
 
 The application follows a clean layered architecture:
 
 Controller → Service → Repository → Database
 
+Every request passes through the JWT filter chain before reaching
+controllers. The service layer handles business logic and the
+repository layer communicates with PostgreSQL via Spring Data JPA.
 ---
 
 ## 🗄️ Entity Relationship Diagram
 
-![ER Diagram 1](docs/images/er-diagram-1.png)
-![ER Diagram 2](docs/images/er-diagram-2.png)
-
+![ER Diagram 1](docs/images/HMS_ERD.png)
 Core entities include User, Patient, Doctor, Appointment, MedicalRecord, Insurance, DoctorSchedule, and Department with proper JPA relationships.
 
 ---
 
 ## 🔐 JWT Authentication Flow
 
-![JWT Flow](docs/images/jwt-flow.png)
+![JWT Flow](docs/images/jwt_authentication_flow.svg)
 
 ---
 
@@ -92,7 +98,7 @@ hospitalManagement/
 Clone the repository:
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/RohanKhodade/Hospital-Management.git
 cd hospitalManagement
 ```
 
@@ -139,7 +145,17 @@ Password: admin123
 ```
 
 ---
+## 📡 API Endpoints
 
+| Method | Endpoint | Role | Description |
+|--------|----------|------|-------------|
+| POST | /auth/login | Public | Login and get JWT |
+| POST | /doctor/create | ADMIN | Create a doctor |
+| POST | /appointment/create/{patientId}/{doctorId} | RECEPTIONIST | Book appointment |
+| POST | /doctor/complete/appointment/{id} | DOCTOR | Complete appointment |
+| GET | /patient/MedicalRecords/{id} | PATIENT, DOCTOR | View medical records |
+
+---
 ## 📚 API Documentation
 
 ```
@@ -149,7 +165,7 @@ http://localhost:8080/swagger-ui.html
 All protected endpoints require:
 
 ```
-Authorization: Bearer <JWT_TOKEN>
+Authorization: Bearer JWT_TOKEN
 ```
 
 ---
