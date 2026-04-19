@@ -39,4 +39,4 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME}}/hms-backend:latest
 
       - name: Render Deploy Hook
-        run: curl -X POST ${{ RENDER_DEPLOY_HOOK }}
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
