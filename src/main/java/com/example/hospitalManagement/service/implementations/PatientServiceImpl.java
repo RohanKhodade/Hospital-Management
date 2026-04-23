@@ -15,6 +15,11 @@ import com.example.hospitalManagement.repository.UserRepository;
 import com.example.hospitalManagement.service.services.InsuranceService;
 import com.example.hospitalManagement.service.services.PatientService;
 import com.example.hospitalManagement.util.AuthUtil;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,9 +53,14 @@ public class PatientServiceImpl implements PatientService {
         authUtil.checkAccess(patient.getUser().getUsername());
         return PatientMapper.toDto(patient);
     }
+
+    @Cacheable("allPatients")
     @Override
-    public List<PatientDto> getAllPatients(){
-        List<Patient> patients=patientRepository.findAll();
+    public List<PatientDto> getAllPatients(int pageNumber, int pageSize){
+
+        Pageable p=PageRequest.of(pageNumber,pageSize);
+        Page<Patient> patientPage=patientRepository.findAll(p);
+        List<Patient> patients=patientPage.getContent();
         List<PatientDto> dtoList=new ArrayList<>();
         for (Patient patient :patients){
             dtoList.add(PatientMapper.toDto(patient));
@@ -59,6 +69,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    @CacheEvict(value="allPatients",allEntries=true)
     public String createPatient(PatientDto patientDto){
         User user=new User();
         user.setUsername(patientDto.getUsername());

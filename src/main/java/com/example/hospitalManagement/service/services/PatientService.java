@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PatientService {
     PatientDto getPatient(Long id);
-    List<PatientDto> getAllPatients();
+    List<PatientDto> getAllPatients(int pageNumber, int pageSize);
     String createPatient(PatientDto patient);
     InsuranceDto getInsurance(Long patientId);
 }

@@ -31,8 +31,11 @@ public class PatientController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<PatientDto>> getAll(){
-        return new ResponseEntity<>(patientService.getAllPatients(),
+    public ResponseEntity<List<PatientDto>> getAll(
+        @RequestParam(defaultValue = "0") int pageNumber,
+        @RequestParam(defaultValue="10") int pageSize
+    ){
+        return new ResponseEntity<>(patientService.getAllPatients(pageNumber,pageSize),
                 HttpStatus.OK);
     }
     @PostMapping("/create")
