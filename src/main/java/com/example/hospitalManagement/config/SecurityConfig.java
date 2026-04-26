@@ -18,6 +18,11 @@ import org.springframework.security.crypto.password4j.BcryptPassword4jPasswordEn
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -34,7 +39,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)
         throws Exception{
-        httpSecurity.csrf(csrf->csrf.disable())
+        httpSecurity
+                .cors(cors->
+                        cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(auth->
                         auth.requestMatchers("/auth/login",
                                         "/patient/create",
@@ -63,5 +71,19 @@ public class SecurityConfig {
         DaoAuthenticationProvider daoAuth= new DaoAuthenticationProvider(userServiceImpl);
         daoAuth.setPasswordEncoder(passwordEncoder);
         return new ProviderManager(daoAuth);
+    }
+
+    // to accept request from front end running on different port
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration config=new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:5173",
+                "https://hms-frontend-bvdr.onrender.com"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }
